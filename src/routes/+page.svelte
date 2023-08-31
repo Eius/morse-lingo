@@ -47,7 +47,13 @@
 
     function pickRandom()
     {
+        const lastIndex = targetIndex;
         targetIndex = Math.floor(Math.random() * latin.length);
+        if (targetIndex === lastIndex)
+        {
+            pickRandom();
+            return;
+        }
         targetString = latin[targetIndex];
     }
 
