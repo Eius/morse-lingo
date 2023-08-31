@@ -25,6 +25,8 @@
     $: {
         if (currentString) {
             currentString = parseInput(currentString);
+            console.clear();
+            console.log("Target: " + morse[targetIndex] + " | " + "Current: " + currentString);
             if (morse[targetIndex] === currentString)
             {
                 correct = true
@@ -32,14 +34,14 @@
                     pickRandom();
                     correct = false;
                     currentString = "";
+                    console.clear();
+                    console.log("Target: " + morse[targetIndex] + " | " + "Current: " + currentString);
                 }, 1000);
 
                 setTimeout(() => {
                     inputRef.focus();
                 }, 1100);
             }
-            console.clear();
-            console.log("Target: " + morse[targetIndex] + " | " + "Current: " + currentString);
         }
     }
 
