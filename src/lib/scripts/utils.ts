@@ -9,6 +9,11 @@ export function parseMorse(morseString: string): string {
 }
 
 export function parseLatin(latinString: string): string {
-    latinString = latinString.toLowerCase().replace(/[^a-z]/g, "");
+    latinString = latinString.replace(/[^a-zA-Z0-9\s]/g, "");
     return latinString;
+}
+
+export function removeWhitespace(input: string): string {
+    input = input.replaceAll(" ", "");
+    return input;
 }

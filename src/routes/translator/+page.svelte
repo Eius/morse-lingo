@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { parseLatin, parseMorse } from "$lib/scripts/utils";
+	import { parseLatin, parseMorse, removeWhitespace } from "$lib/scripts/utils";
     import { morse, latin } from "$lib/scripts/data";
 	import { debug } from "svelte/internal";
 
@@ -29,13 +29,14 @@
 
         if (latinString)
         {
-            let latinInput = parseLatin(latinString);
+            latinString = parseLatin(latinString);
+            const latinInput = removeWhitespace(latinString);
             morseString = "";
             for (let i = 0; i < latinInput.length; i++) {
-                const charToFind = latinInput[i];
+                const charToFind = latinInput[i].toLowerCase();
                 const foundIndex = latin.findIndex((latinChar) => latinChar === charToFind);
                 if (foundIndex === -1) { break; }
-                morseString = morseString.concat(morse[foundIndex], _delimiter);
+                morseString = morseString.concat(morse[foundIndex], i === latinInput.length - 1 ? "" : _delimiter);
             }
         } else if (latinString.length <= 0)
         {
