@@ -23,16 +23,8 @@
         {
             if (delimiter.length > 1) { delimiter = delimiter[0] }
             _delimiter = " " + delimiter + " ";
-        }
-
-        if (morseString) 
-        {
-            morseString = parseMorse(morseString);
-            for (let i = 0; i < morseString.length; i++) {
-                const char = morseString[i];
-
-                
-            }
+        } else {
+            _delimiter = " ";
         }
 
         if (latinString)
@@ -63,12 +55,12 @@
     </label>
     <div class="flex flex-col gap-4">
         <label class="flex flex-col">
-            Morse
-            <textarea cols="75" rows="5" bind:this={morseTextArea} placeholder="Morse code..." bind:value={morseString} />
-        </label>
-        <label class="flex flex-col">
             Latin
             <textarea cols="75" rows="5" bind:this={latinTextArea} placeholder="Latin..." bind:value={latinString} />
+        </label>
+        <label class="flex flex-col">
+            Morse
+            <textarea cols="75" rows="5" bind:this={morseTextArea} placeholder="Morse code..." bind:value={morseString} />
         </label>
     </div>
 </div>
