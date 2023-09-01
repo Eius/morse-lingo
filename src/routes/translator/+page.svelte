@@ -6,6 +6,8 @@
 
     let targetIndex: number;
 
+    let delimiter: string = "|";
+    let _delimiter: string = " " + delimiter + " ";
     let morseString: string = "";
     let latinString: string = "";
 
@@ -17,6 +19,12 @@
     })
 
     $: {
+        if (delimiter)
+        {
+            if (delimiter.length > 1) { delimiter = delimiter[0] }
+            _delimiter = " " + delimiter + " ";
+        }
+
         if (morseString) 
         {
             morseString = parseMorse(morseString);
@@ -35,7 +43,7 @@
                 const charToFind = latinInput[i];
                 const foundIndex = latin.findIndex((latinChar) => latinChar === charToFind);
                 if (foundIndex === -1) { break; }
-                morseString = morseString.concat(morse[foundIndex], " ");
+                morseString = morseString.concat(morse[foundIndex], _delimiter);
             }
         } else if (latinString.length <= 0)
         {
@@ -49,6 +57,10 @@
     <a href="/" class="font-semibold text-xl">Challenge {">"}</a>
 </div>
 <div class="flex flex-col gap-2 justify-center items-center min-h-screen">
+    <label class="flex items-center gap-4">
+        Delimiter
+        <textarea cols="1" rows="1" class="resize-none" bind:value={delimiter} />
+    </label>
     <div class="flex flex-col gap-4">
         <label class="flex flex-col">
             Morse
