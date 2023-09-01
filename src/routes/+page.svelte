@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { parseMorse } from "$lib/scripts/utils";
 	import { morse, latin } from "$lib/scripts/data";
+    import { fly } from "svelte/transition";
 
     let targetIndex: number;
 
@@ -63,11 +64,13 @@
     <div>
         <input bind:this={inputRef} type="text" placeholder="Your answer..." bind:value={currentString} disabled={correct}>
     </div>
-    {#if correct}
-    <p class="font-semibold text-lg text-green-500">Correct!</p>
-    {:else}
-    <p>‎</p>
-    {/if}
+    <div>
+        {#if correct}
+            <p class="inline-block font-semibold text-lg text-green-500" in:fly={{duration: 400, x: -200}} out:fly={{duration: 400, x: 200}}>Correct!</p>
+        {:else}
+            <p class="inline-block text-lg">ㅤ</p>
+        {/if}
+    </div>
 </div>
 
 <style lang="postcss">
