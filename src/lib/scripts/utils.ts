@@ -1,9 +1,14 @@
-export function parseInput(currentString: string): string {
-    currentString = currentString.replaceAll("_", "-");
-    for (let index = 0; index < currentString.length; index++) {
-        const char: string = currentString[index];
+export function parseMorse(morseString: string): string {
+    morseString = morseString.replaceAll("_", "-");
+    for (let index = 0; index < morseString.length; index++) {
+        const char: string = morseString[index];
         if (char === "." || char === "-" || char === "_") continue;
-        currentString = currentString.replaceAll(char, "");
+        morseString = morseString.replaceAll(char, "");
     }
-    return currentString;
+    return morseString;
+}
+
+export function parseLatin(latinString: string): string {
+    latinString = latinString.toLowerCase().replace(/[^a-z]/g, "");
+    return latinString;
 }

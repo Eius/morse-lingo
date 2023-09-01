@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { parseInput } from "$lib/scripts/utils";
-	import { fly } from "svelte/transition";
-
-    
-    const morse: string[] = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
-                            "..-", "...-", ".--", "-..-", "-.--", "--.."]
-
-    const latin: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+	import { parseMorse } from "$lib/scripts/utils";
+	import { morse, latin } from "$lib/scripts/data";
 
     let targetIndex: number;
 
@@ -24,7 +18,7 @@
 
     $: {
         if (currentString) {
-            currentString = parseInput(currentString);
+            currentString = parseMorse(currentString);
             console.clear();
             console.log("Target: " + morse[targetIndex] + " | " + "Current: " + currentString);
             if (morse[targetIndex] === currentString)
@@ -59,12 +53,15 @@
 
 </script>
 
+<div class="absolute top-4 right-4 bounce-animation">
+    <a href="/translator" class="font-semibold text-xl">Translator {">"}</a>
+</div>
 <div class="flex flex-col gap-2 justify-center items-center min-h-screen">
     <h3 class="text-xl uppercase">
         {targetString}
     </h3>
     <div>
-        <input bind:this={inputRef} type="text" placeholder="Your answer..." accept=".-" bind:value={currentString} disabled={correct}>
+        <input bind:this={inputRef} type="text" placeholder="Your answer..." bind:value={currentString} disabled={correct}>
     </div>
     {#if correct}
     <p class="font-semibold text-lg text-green-500">Correct!</p>
@@ -72,3 +69,18 @@
     <p>‎</p>
     {/if}
 </div>
+
+<style lang="postcss">
+    @keyframes bounce {
+        0% {
+            right: 16px;
+        }
+        100% {
+            right: 32px;
+        }
+    }
+
+    .bounce-animation {
+        animation: bounce 1s infinite alternate;
+    }
+</style>
