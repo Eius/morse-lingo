@@ -32,6 +32,7 @@
             latinString = parseLatin(latinString);
             const latinInput = removeWhitespace(latinString);
             morseString = "";
+
             for (let i = 0; i < latinInput.length; i++) {
                 const charToFind = latinInput[i].toLowerCase();
                 const foundIndex = latin.findIndex((latinChar) => latinChar === charToFind);
